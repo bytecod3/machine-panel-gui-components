@@ -48,3 +48,28 @@ class GUICommon:
     def update(self):
         raise NotImplementedError
 
+    def transform(self, rgb, factor):
+        retval = '#'
+        for v in [rgb[0], rgb[1], rgb[2]]:
+            v = int((v * factor )/256)
+            if v > 255: v = 255
+            if v < 0: v = 0
+            retval = "%s%02x" % (retval, v)
+
+        return retval
+
+    def set_colors(self):
+        '''
+        This function factors dark, very dark, light and very light colors
+        '''
+        rgb = self.winfo_rgb(self.base)
+        self.dbase = self.transform(rgb, 0.8)
+        self.vdbase = self.transform(rgb, 0.7)
+        self.lbase = self.transform(rgb, 1.1)
+        self.vlbase = self.transform(rgb, 1.3)
+
+
+
+
+
+
